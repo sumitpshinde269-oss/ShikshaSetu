@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles for children-friendly UI */
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply bg-math-bg text-gray-800 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Large tap targets for children */
+  button, 
+  a,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Better touch scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-math-primary outline-offset-2;
+  }
+
+  /* Disable text selection on interactive elements */
+  button, 
+  .tap-target {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Custom components for the math app */
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl shadow-lg p-4 transition-transform active:scale-95;
+  }
+  
+  .btn-primary {
+    @apply bg-math-primary text-white font-bold py-3 px-6 rounded-xl 
+           transition-all hover:bg-opacity-90 active:scale-95 
+           shadow-md text-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-math-secondary text-white font-bold py-3 px-6 rounded-xl 
+           transition-all hover:bg-opacity-90 active:scale-95 
+           shadow-md text-lg;
+  }
+
+  .btn-success {
+    @apply bg-math-success text-white font-bold py-3 px-6 rounded-xl 
+           transition-all hover:bg-opacity-90 active:scale-95 
+           shadow-md text-lg;
+  }
+
+  .container-mobile {
+    @apply max-w-md mx-auto px-4 py-6;
+  }
+
+  .grade-card {
+    @apply card flex flex-col items-center justify-center 
+           text-center p-6 cursor-pointer
+           bg-gradient-to-br from-math-primary/10 to-math-secondary/10
+           hover:from-math-primary/20 hover:to-math-secondary/20;
+  }
+
+  .lesson-card {
+    @apply card flex flex-col gap-2 p-4 cursor-pointer
+           hover:shadow-xl transition-shadow;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-bold;
+  }
+
+  .badge-completed {
+    @apply bg-math-success text-white;
+  }
+
+  .badge-locked {
+    @apply bg-gray-400 text-white;
+  }
+
+  .badge-inprogress {
+    @apply bg-math-accent text-gray-800;
+  }
+}
