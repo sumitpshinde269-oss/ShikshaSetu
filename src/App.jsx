@@ -8,15 +8,19 @@ import LessonPlayerPage from './pages/LessonPlayerPage';
 import QuizScreenPage from './pages/QuizScreenPage';
 import ProgressDashboardPage from './pages/ProgressDashboardPage';
 
-// Student workflow algorithm:
-// 1) LoginPage: student signs in and chooses a profile avatar.
-// 2) GradeSelectionPage: student picks a grade level.
-// 3) SubjectHomePage: student chooses a subject for the selected grade.
-// 4) ChapterListPage: student picks a chapter inside that subject.
-// 5) LessonPlayerPage: student watches a lesson and completes practice steps.
-// 6) QuizScreenPage: student answers quiz questions and earns stars.
-// 7) ProgressDashboardPage: student reviews progress, streaks, badges, and next goals.
-// End-to-end path: Login -> Grade -> Subject -> Chapter -> Lesson -> Quiz -> Progress
+// Workflow algorithm for student navigation:
+// [Login] -> [Grade Selection] -> [Subject Home] -> [Chapter List] -> [Lesson Player] -> [Quiz Screen] -> [Progress Dashboard]
+//
+// 1) Student opens the app and logs in on the Login page.
+// 2) The app shows all available grade cards; the student selects a grade.
+// 3) Based on the chosen grade, the app loads a subject list and the student picks a subject.
+// 4) The app loads chapter cards for that subject; the student picks one chapter.
+// 5) Inside the selected chapter, the student opens a lesson video/player screen.
+// 6) After the lesson, the student completes a short quiz for that lesson.
+// 7) On successful quiz completion, the student is routed to the progress dashboard to review streaks, stars, badges, and next goals.
+//
+// This creates a clear, kid-friendly learning loop:
+// Login -> Grade -> Subject -> Chapter -> Lesson -> Quiz -> Progress -> Continue learning
 
 function App() {
   return (
