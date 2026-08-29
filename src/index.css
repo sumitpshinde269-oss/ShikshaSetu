@@ -4,8 +4,8 @@
 
 :root {
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  color: #1f2937;
-  background: #f5f7ff;
+  color: #111827;
+  background: #f3f4f6;
   line-height: 1.5;
   font-weight: 400;
   font-synthesis: none;
@@ -21,9 +21,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(96, 165, 250, 0.18), transparent 30%),
-    linear-gradient(180deg, #f4f8ff 0%, #eef8f3 100%);
+  background: #f8fafc;
+  color: #111827;
 }
 
 * {
@@ -31,7 +30,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -40,11 +40,7 @@ input {
 }
 
 @layer utilities {
-  .shadow-soft {
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-  }
-
-  .soft-ring {
-    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+  .panel {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
   }
 }

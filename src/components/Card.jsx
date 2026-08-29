@@ -3,7 +3,7 @@ export default function Card({ children, className = '', onClick, role = 'button
     <div
       onClick={onClick}
       role={onClick ? role : undefined}
-      className={`rounded-[28px] border border-white/60 bg-white/85 p-4 shadow-soft backdrop-blur-sm transition-transform duration-200 hover:-translate-y-1 ${className}`}
+      className={`rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-colors ${onClick ? 'cursor-pointer hover:bg-slate-50' : ''} ${className}`}
     >
       {children}
     </div>
