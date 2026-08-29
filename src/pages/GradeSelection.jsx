@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { grades } from '../data/mockData';
-import Card from '../components/Card';
+import Card from '../data/components/components/Card';
 
 // Page 1: Grade Selection Screen
 // Shows all grades 2-8 as large tappable cards

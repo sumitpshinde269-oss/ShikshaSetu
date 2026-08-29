@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getChapterById, getLessonsByChapter } from '../data/mockData';
-import Card from '../components/Card';
-import Badge from '../components/Badge';
-import Button from '../components/Button';
+import { getChapterById, getLessonsByChapter } from '../../../../../../../../mockData';
+import Card from '../../../../../../Card';
+import Badge from '../../Badge';
+import Button from '../../../../../../../Button';
 
 // Page 3: Chapter/Lesson List Screen
 // Shows all lessons within a chapter with status indicators

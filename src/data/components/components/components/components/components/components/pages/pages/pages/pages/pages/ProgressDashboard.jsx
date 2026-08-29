@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userProgress, grades, chapters } from '../data/mockData';
-import Card from '../components/Card';
-import ProgressBar from '../components/ProgressBar';
-import Badge from '../components/Badge';
+import { userProgress, grades, chapters } from '../../../../../../../../../../../mockData';
+import Card from '../../../../../../../../../Card';
+import ProgressBar from '../../../../../../../../ProgressBar';
+import Badge from '../../../../../Badge';
 
 // Page 6: Progress Dashboard
 // Shows progress, badges, and streaks

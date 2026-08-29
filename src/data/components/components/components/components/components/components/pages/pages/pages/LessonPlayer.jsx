@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getQuizForLesson } from '../data/mockData';
-import VideoPlayer from '../components/VideoPlayer';
-import Button from '../components/Button';
-import Card from '../components/Card';
+import { getQuizForLesson } from '../../../../../../../../../mockData';
+import VideoPlayer from '../../../../VideoPlayer';
+import Button from '../../../../../../../../Button';
+import Card from '../../../../../../../Card';
 
 // Page 4: Lesson Player Screen
 // Shows video player with lesson content and "Take Quiz" button

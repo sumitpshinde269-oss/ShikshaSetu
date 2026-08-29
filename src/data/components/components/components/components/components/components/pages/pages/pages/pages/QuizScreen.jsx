@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getQuizForLesson } from '../data/mockData';
-import QuizOption from '../components/QuizOption';
-import Button from '../components/Button';
-import Card from '../components/Card';
-import ProgressBar from '../components/ProgressBar';
+import { getQuizForLesson } from '../../../../../../../../../../mockData';
+import QuizOption from '../../../../../../QuizOption';
+import Button from '../../../../../../../../../Button';
+import Card from '../../../../../../../../Card';
+import ProgressBar from '../../../../../../../ProgressBar';
 
 // Page 5: Quiz Screen
 // Shows one question at a time with immediate feedback

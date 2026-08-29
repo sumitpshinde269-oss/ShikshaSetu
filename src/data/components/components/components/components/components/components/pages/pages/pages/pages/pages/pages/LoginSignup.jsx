@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '../components/Card';
-import Button from '../components/Button';
+import Card from '../../../../../../../../../../Card';
+import Button from '../../../../../../../../../../../Button';
 
 // Page 7: Simple Login/Signup Screen
 // Phone number + OTP input (UI only)

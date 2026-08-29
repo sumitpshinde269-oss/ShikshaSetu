@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { chapters, grades } from '../data/mockData';
-import Card from '../components/Card';
+import { chapters, grades } from '../../../../../../../mockData';
+import Card from '../../../../../Card';
 
 // Page 2: Subject Home (Maths only for now)
 // Shows Maths as the only subject card with chapter list

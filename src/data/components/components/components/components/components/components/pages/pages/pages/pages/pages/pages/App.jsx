@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Import pages
-import GradeSelection from './pages/GradeSelection';
-import SubjectHome from './pages/SubjectHome';
-import ChapterList from './pages/ChapterList';
-import LessonPlayer from './pages/LessonPlayer';
-import QuizScreen from './pages/QuizScreen';
-import ProgressDashboard from './pages/ProgressDashboard';
-import LoginSignup from './pages/LoginSignup';
+import GradeSelection from '../../../../../../../../../../../../../pages/GradeSelection';
+import SubjectHome from '../../../../../SubjectHome';
+import ChapterList from '../../../../ChapterList';
+import LessonPlayer from '../../../LessonPlayer';
+import QuizScreen from '../../QuizScreen';
+import ProgressDashboard from '../ProgressDashboard';
+import LoginSignup from './LoginSignup';
 
 // Main App component with routing
 function App() {
