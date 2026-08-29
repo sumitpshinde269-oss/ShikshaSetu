@@ -49,6 +49,7 @@ export const lessonContent = {
     title: 'Algebra Foundations',
     videoTitle: 'Understanding variables and expressions',
     duration: '18 min',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Learn how variables represent unknown values and how expressions are formed step by step.',
     notes: [
       'A variable is a symbol used to represent an unknown quantity.',
@@ -60,6 +61,7 @@ export const lessonContent = {
     title: 'Linear Equations',
     videoTitle: 'Solving one-step and two-step equations',
     duration: '22 min',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Use inverse operations to isolate a variable and balance both sides of an equation.',
     notes: [
       'Balance each side of the equation to keep it true.',
@@ -71,6 +73,7 @@ export const lessonContent = {
     title: 'Patterns and Sequences',
     videoTitle: 'Recognising numerical patterns',
     duration: '16 min',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Identify growth rules in sequences and predict the next terms accurately.',
     notes: [
       'A sequence follows a repeating or rule-based pattern.',
@@ -82,6 +85,7 @@ export const lessonContent = {
     title: 'Expressions and Terms',
     videoTitle: 'Working with variables, coefficients, and constants',
     duration: '20 min',
+    videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Break expressions into parts and understand how each term contributes to the whole value.',
     notes: [
       'A constant stays unchanged, while a variable can vary.',
