@@ -1,8 +1,11 @@
 export const grades = [
+  { id: 'grade-2', name: 'Grade 2', track: 'Foundation track' },
+  { id: 'grade-3', name: 'Grade 3', track: 'Core curriculum' },
+  { id: 'grade-4', name: 'Grade 4', track: 'Applied learning' },
+  { id: 'grade-5', name: 'Grade 5', track: 'Growth track' },
   { id: 'grade-6', name: 'Grade 6', track: 'Foundation track' },
   { id: 'grade-7', name: 'Grade 7', track: 'Core curriculum' },
   { id: 'grade-8', name: 'Grade 8', track: 'Advanced pathway' },
-  { id: 'grade-9', name: 'Grade 9', track: 'STEM focus' },
 ];
 
 export const homeContent = {

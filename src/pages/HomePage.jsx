@@ -32,10 +32,10 @@ export default function HomePage() {
                   key={grade.id}
                   type="button"
                   onClick={() => setSelectedGrade(grade.id)}
-                  className={`w-full rounded-xl border p-3 text-left transition ${selectedGrade === grade.id ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'}`}
+                  className={`w-full rounded-xl border p-3 text-left transition ${selectedGrade === grade.id ? 'border-blue-600 bg-blue-600 text-white shadow-sm' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300'}`}
                 >
                   <div className="text-base font-semibold">{grade.name}</div>
-                  <div className={`mt-1 text-xs ${selectedGrade === grade.id ? 'text-slate-200' : 'text-slate-500'}`}>{grade.track}</div>
+                  <div className={`mt-1 text-xs ${selectedGrade === grade.id ? 'text-blue-100' : 'text-slate-500'}`}>{grade.track}</div>
                 </button>
               ))}
             </div>
@@ -48,7 +48,7 @@ export default function HomePage() {
                   <p className="text-sm font-medium text-slate-500">Current track</p>
                   <h2 className="mt-2 text-2xl font-bold text-slate-900">{activeGrade.name}</h2>
                 </div>
-                <div className="rounded-xl bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700">{activeGrade.track}</div>
+                <div className="rounded-xl bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700">{activeGrade.track}</div>
               </div>
             </div>
 
@@ -58,7 +58,7 @@ export default function HomePage() {
                   <p className="text-sm font-medium text-slate-500">Subject</p>
                   <h3 className="text-xl font-semibold text-slate-900">Mathematics</h3>
                 </div>
-                <div className="rounded-xl bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700">Algebra</div>
+                <div className="rounded-xl bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700">Algebra</div>
               </div>
 
               <div className="mb-5">
@@ -73,7 +73,7 @@ export default function HomePage() {
                       <div className="text-base font-semibold text-slate-900">{lesson.title}</div>
                       <div className="mt-1 text-sm text-slate-500">{lesson.duration} · {lesson.level}</div>
                     </div>
-                    <Button variant="secondary">Open</Button>
+                    <Button className="bg-blue-600 text-white hover:bg-blue-700">Open</Button>
                   </Card>
                 ))}
               </div>
