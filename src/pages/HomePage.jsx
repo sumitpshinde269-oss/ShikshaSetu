@@ -12,8 +12,13 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [language, setLanguage] = useState(getStoredLanguage());
   const [selectedGrade, setSelectedGrade] = useState('grade-6');
+  const [searchTerm, setSearchTerm] = useState('');
   const activeGrade = getGradeById(selectedGrade);
   const lessons = getLessonsForGrade(selectedGrade);
+  const filteredLessons = lessons.filter((lesson) => {
+    const lessonTitle = language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title;
+    return lessonTitle.toLowerCase().includes(searchTerm.trim().toLowerCase());
+  });
   const [lastLessonId, setLastLessonId] = useState(() => {
     if (typeof window === 'undefined') return null;
     return window.localStorage.getItem(LAST_LESSON_KEY);
@@ -102,13 +107,31 @@ export default function HomePage() {
                 <h3 className="mt-1 text-lg font-semibold text-slate-900">{activeGrade.name} · Algebra Foundations</h3>
               </div>
 
+              <div className="mb-5">
+                <label htmlFor="lesson-search" className="mb-2 block text-sm font-medium text-slate-700">
+                  Search lessons
+                </label>
+                <input
+                  id="lesson-search"
+                  type="text"
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Search by lesson name"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:border-slate-400 focus:bg-white"
+                />
+              </div>
+
               {lessons.length === 0 ? (
                 <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
                   <p className="text-base font-medium text-slate-700">{t.noLessons}</p>
                 </div>
+              ) : filteredLessons.length === 0 ? (
+                <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
+                  <p className="text-base font-medium text-slate-700">No lessons match your search.</p>
+                </div>
               ) : (
                 <div className="space-y-3">
-                  {lessons.map((lesson) => (
+                  {filteredLessons.map((lesson) => (
                     <Card key={lesson.id} onClick={() => navigate(`/lesson/${lesson.id}`)} className="flex items-center justify-between gap-4">
                       <div>
                         <div className="text-base font-semibold text-slate-900">{language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title}</div>
