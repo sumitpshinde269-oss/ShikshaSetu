@@ -6,6 +6,14 @@ import LanguageToggle from '../components/LanguageToggle';
 import { getStoredLanguage, setStoredLanguage, translations } from '../data/i18n';
 import { getQuizForLesson } from '../data/mockData';
 
+const WEAK_AREAS_KEY = 'shiksha-weak-areas';
+const topicMap = {
+  'algebra-foundations': 'Algebra Basics',
+  'linear-equations': 'Equations',
+  'patterns': 'Patterns',
+  'expressions': 'Expressions',
+};
+
 export default function QuizPage() {
   const { lessonId } = useParams();
   const [language, setLanguage] = useState(getStoredLanguage());
@@ -41,6 +49,15 @@ export default function QuizPage() {
       setCurrentIndex((prev) => prev + 1);
       setSelected(null);
       return;
+    }
+
+    const weakTopic = topicMap[lessonId] || 'Core concepts';
+    const isWrong = selected !== currentQuestion.correct;
+
+    if (isWrong && typeof window !== 'undefined') {
+      const currentWeakAreas = JSON.parse(window.localStorage.getItem(WEAK_AREAS_KEY) || '[]');
+      const nextWeakAreas = [...new Set([...currentWeakAreas, weakTopic])];
+      window.localStorage.setItem(WEAK_AREAS_KEY, JSON.stringify(nextWeakAreas));
     }
 
     setIsFinished(true);

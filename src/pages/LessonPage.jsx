@@ -14,6 +14,7 @@ export default function LessonPage() {
   const [quizUnlocked, setQuizUnlocked] = useState(false);
   const [doubt, setDoubt] = useState('');
   const [answer, setAnswer] = useState('');
+  const [isReading, setIsReading] = useState(false);
 
   useEffect(() => {
     setStoredLanguage(language);
@@ -25,8 +26,17 @@ export default function LessonPage() {
     }
   }, [lessonId]);
 
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
   const lesson = getLessonContent(lessonId);
   const t = translations[language].lesson;
+  const speechSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
   if (!lessonId || !lesson || !lesson.id) {
     return (
@@ -60,6 +70,32 @@ export default function LessonPage() {
       : `For this topic, start by reviewing the key rule behind "${cleanDoubt}" and then try one example to check your understanding.`;
 
     setAnswer(response);
+  };
+
+  const handleReadAloud = () => {
+    if (!speechSupported) {
+      return;
+    }
+
+    const noteText = notes.join(' ');
+    if (!noteText.trim()) {
+      return;
+    }
+
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      setIsReading(false);
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(noteText);
+    utterance.lang = language === 'hi' ? 'hi-IN' : 'en-US';
+    utterance.onend = () => setIsReading(false);
+    utterance.onerror = () => setIsReading(false);
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setIsReading(true);
   };
 
   return (
@@ -108,7 +144,18 @@ export default function LessonPage() {
           )}
 
           <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">{t.notes}</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-lg font-semibold text-slate-900">{t.notes}</h2>
+              <Button
+                type="button"
+                variant={isReading ? 'primary' : 'muted'}
+                onClick={handleReadAloud}
+                disabled={!speechSupported}
+                className="shrink-0"
+              >
+                {isReading ? t.stopReading : t.readAloud}
+              </Button>
+            </div>
             <ul className="mt-3 space-y-2.5 text-sm leading-6 text-slate-600">
               {notes.map((note) => (
                 <li key={note} className="flex gap-2">

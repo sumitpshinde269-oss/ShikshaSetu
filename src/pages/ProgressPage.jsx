@@ -6,14 +6,23 @@ import LanguageToggle from '../components/LanguageToggle';
 import { getStoredLanguage, setStoredLanguage, translations } from '../data/i18n';
 import { progress } from '../data/mockData';
 
+const WEAK_AREAS_KEY = 'shiksha-weak-areas';
+
 export default function ProgressPage() {
   const navigate = useNavigate();
   const [language, setLanguage] = useState(getStoredLanguage());
+  const [weakAreas, setWeakAreas] = useState([]);
   const t = translations[language].progress;
 
   useEffect(() => {
     setStoredLanguage(language);
   }, [language]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const storedAreas = JSON.parse(window.localStorage.getItem(WEAK_AREAS_KEY) || '[]');
+    setWeakAreas(storedAreas);
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-50 px-5 py-8">
@@ -64,6 +73,19 @@ export default function ProgressPage() {
                 <div className="h-2.5 rounded-full bg-slate-900" style={{ width: `${(progress.weeklyTarget / 5) * 100}%` }} />
               </div>
             </div>
+
+            {weakAreas.length > 0 && (
+              <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-700">Weak area</p>
+                <ul className="mt-3 space-y-2 text-sm text-amber-900">
+                  {weakAreas.map((area) => (
+                    <li key={area} className="rounded-xl bg-white/60 px-3 py-2">
+                      Revisit: {area}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </Card>
 
           <Card className="p-5">
