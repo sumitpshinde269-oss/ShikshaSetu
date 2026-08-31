@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import LanguageToggle from '../components/LanguageToggle';
 import { getStoredLanguage, setStoredLanguage, translations } from '../data/i18n';
-import { getQuizForLesson } from '../data/mockData';
+import { getEasierPracticeForLesson, getQuizForLesson } from '../data/mockData';
 
 const WEAK_AREAS_KEY = 'shiksha-weak-areas';
 const topicMap = {
@@ -21,6 +21,8 @@ export default function QuizPage() {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState(null);
+  const [followUpQuestion, setFollowUpQuestion] = useState(null);
+  const [followUpSelected, setFollowUpSelected] = useState(null);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
@@ -30,6 +32,7 @@ export default function QuizPage() {
 
   const currentQuestion = questions[currentIndex];
   const isCorrectAnswer = selected !== null && selected === currentQuestion?.correct;
+  const needsFollowUp = selected !== null && selected !== currentQuestion?.correct && !!followUpQuestion && followUpSelected === null;
   const t = translations[language].quiz;
 
   const handleAnswer = (optionIndex) => {
@@ -39,15 +42,24 @@ export default function QuizPage() {
 
     if (optionIndex === currentQuestion.correct) {
       setScore((prev) => prev + 1);
+      return;
     }
+
+    const practiceQuestion = getEasierPracticeForLesson(lessonId);
+    setFollowUpQuestion(practiceQuestion);
+    setFollowUpSelected(null);
   };
 
   const handleNext = () => {
     if (selected === null) return;
 
+    if (selected !== currentQuestion.correct && !followUpSelected) return;
+
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setSelected(null);
+      setFollowUpQuestion(null);
+      setFollowUpSelected(null);
       return;
     }
 
@@ -66,6 +78,8 @@ export default function QuizPage() {
   const handleRestart = () => {
     setCurrentIndex(0);
     setSelected(null);
+    setFollowUpQuestion(null);
+    setFollowUpSelected(null);
     setScore(0);
     setIsFinished(false);
   };
@@ -185,9 +199,54 @@ export default function QuizPage() {
             </div>
           )}
 
+          {followUpQuestion && selected !== null && selected !== currentQuestion.correct && (
+            <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Quick practice</p>
+              <h3 className="mt-2 text-xl font-semibold text-slate-900">{followUpQuestion.question}</h3>
+
+              <div className="mt-4 space-y-3">
+                {followUpQuestion.options.map((option, index) => {
+                  const isCorrect = index === followUpQuestion.correct;
+                  const isSelected = index === followUpSelected;
+                  const showFeedback = followUpSelected !== null;
+
+                  let classes = 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-100';
+
+                  if (showFeedback && isCorrect) {
+                    classes = 'border-emerald-500 bg-emerald-50 text-emerald-700';
+                  }
+
+                  if (showFeedback && isSelected && !isCorrect) {
+                    classes = 'border-rose-500 bg-rose-50 text-rose-700';
+                  }
+
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setFollowUpSelected(index)}
+                      disabled={followUpSelected !== null}
+                      className={`flex w-full items-center justify-between rounded-xl border p-3.5 text-left text-sm font-medium transition disabled:cursor-default ${classes}`}
+                    >
+                      <span>{option}</span>
+                      {showFeedback && isCorrect && <span className="text-lg font-bold">✓</span>}
+                      {showFeedback && isSelected && !isCorrect && <span className="text-lg font-bold">✕</span>}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {followUpSelected !== null && (
+                <div className="mt-4 rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-700">
+                  <span className="font-semibold text-slate-900">Practice note:</span> {followUpQuestion.explanation}
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="mt-6 flex items-center justify-between gap-3">
             <Button variant="secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>{t.back}</Button>
-            <Button onClick={handleNext} disabled={selected === null}>
+            <Button onClick={handleNext} disabled={selected === null || (selected !== currentQuestion.correct && followUpSelected === null)}>
               {currentIndex === questions.length - 1 ? t.finish : t.next}
             </Button>
           </div>

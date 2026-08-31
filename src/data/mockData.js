@@ -184,6 +184,18 @@ export const quizMap = {
   ],
 };
 
+export const easierPracticeMap = {
+  'algebra-foundations': [
+    { id: 'easy-a1', question: 'What is 3 + 2?', options: ['4', '5', '6', '7'], correct: 1, explanation: 'Adding 3 and 2 gives 5.' },
+  ],
+  'linear-equations': [
+    { id: 'easy-l1', question: 'What is x if x + 1 = 3?', options: ['1', '2', '3', '4'], correct: 1, explanation: 'Subtract 1 from both sides: x = 2.' },
+  ],
+  'patterns': [
+    { id: 'easy-p1', question: 'What is the next number in 1, 3, 5, 7, ?', options: ['8', '9', '10', '11'], correct: 2, explanation: 'The pattern adds 2 each time, so the next number is 9.' },
+  ],
+};
+
 export const progress = {
   streak: 12,
   completed: 18,
@@ -206,4 +218,8 @@ export function getLessonContent(lessonId) {
 
 export function getQuizForLesson(lessonId) {
   return quizMap[lessonId] || [];
+}
+
+export function getEasierPracticeForLesson(lessonId) {
+  return easierPracticeMap[lessonId]?.[0] || null;
 }
