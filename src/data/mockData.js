@@ -85,51 +85,83 @@ export const homeContent = {
 
 export const lessonContent = {
   'algebra-foundations': {
+    id: 'algebra-foundations',
     title: 'Algebra Foundations',
+    titleHi: 'बीजगणित आधार',
     videoTitle: 'Understanding variables and expressions',
     duration: '18 min',
     videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Learn how variables represent unknown values and how expressions are formed step by step.',
+    summaryHi: 'सीखें कि चर अज्ञात मानों का प्रतिनिधित्व कैसे करते हैं और अभिव्यक्तियाँ चरण दर चरण कैसे बनती हैं।',
     notes: [
       'A variable is a symbol used to represent an unknown quantity.',
       'Terms are separated by addition or subtraction in an expression.',
       'Simplifying expressions keeps the value the same while reducing complexity.',
     ],
+    notesHi: [
+      'चर एक प्रतीक है जिसका उपयोग अज्ञात मात्रा का प्रतिनिधित्व करने के लिए किया जाता है।',
+      'अभिव्यक्ति में पदों को जोड़ या घटाव से अलग किया जाता है।',
+      'अभिव्यक्तियों को सरल बनाना मान को समान रखता है जबकि जटिलता कम करता है।',
+    ],
   },
   'linear-equations': {
+    id: 'linear-equations',
     title: 'Linear Equations',
+    titleHi: 'रैखिक समीकरण',
     videoTitle: 'Solving one-step and two-step equations',
     duration: '22 min',
     videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Use inverse operations to isolate a variable and balance both sides of an equation.',
+    summaryHi: 'विलोम संक्रियाओं का उपयोग करके चर को अलग करें और समीकरण के दोनों तरफ संतुलन बनाएं।',
     notes: [
       'Balance each side of the equation to keep it true.',
       'Use inverse operations to undo operations around the variable.',
       'Check your solution by substituting it back into the original equation.',
     ],
+    notesHi: [
+      'समीकरण को सही रखने के लिए दोनों तरफ संतुलन बनाए रखें।',
+      'चर के चारों ओर की संक्रियाओं को उलटने के लिए विलोम संक्रियाओं का उपयोग करें।',
+      'अपने उत्तर की जाँच करने के लिए उसे मूल समीकरण में पुनः प्रतिस्थापित करें।',
+    ],
   },
   'patterns': {
+    id: 'patterns',
     title: 'Patterns and Sequences',
+    titleHi: 'पैटर्न और अनुक्रम',
     videoTitle: 'Recognising numerical patterns',
     duration: '16 min',
     videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Identify growth rules in sequences and predict the next terms accurately.',
+    summaryHi: 'अनुक्रम में विकास के नियमों को पहचानें और अगली संख्याओं का सही अनुमान लगाएं।',
     notes: [
       'A sequence follows a repeating or rule-based pattern.',
       'Identify the difference between terms to predict the next value.',
       'Patterns are often easier to understand when written in a table.',
     ],
+    notesHi: [
+      'अनुक्रम एक दोहराने योग्य या नियम-आधारित पैटर्न का अनुसरण करता है।',
+      'अगली संख्या का अनुमान लगाने के लिए पदों के बीच अंतर पहचानें।',
+      'पैटर्न अक्सर तालिका में लिखने पर समझने में आसान होते हैं।',
+    ],
   },
   'expressions': {
+    id: 'expressions',
     title: 'Expressions and Terms',
+    titleHi: 'अभिव्यक्ति और पद',
     videoTitle: 'Working with variables, coefficients, and constants',
     duration: '20 min',
     videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
     summary: 'Break expressions into parts and understand how each term contributes to the whole value.',
+    summaryHi: 'अभिव्यक्तियों को भागों में बाँटें और समझें कि प्रत्येक पद पूरे मान में कैसे योगदान देता है।',
     notes: [
       'A constant stays unchanged, while a variable can vary.',
       'Coefficients multiply variables in an expression.',
       'Like terms can be combined to simplify an expression.',
+    ],
+    notesHi: [
+      'स्थिरांक बदला नहीं जाता, जबकि चर बदल सकता है।',
+      'गुणांक अभिव्यक्ति में चर को गुणा करते हैं।',
+      'समान पदों को संयोजित करके अभिव्यक्ति को सरल बनाया जा सकता है।',
     ],
   },
 };

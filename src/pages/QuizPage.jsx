@@ -1,11 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import Card from '../components/Card';
+import LanguageToggle from '../components/LanguageToggle';
+import { getStoredLanguage, setStoredLanguage, translations } from '../data/i18n';
 import { getQuizForLesson } from '../data/mockData';
 
 export default function QuizPage() {
   const { lessonId } = useParams();
+  const [language, setLanguage] = useState(getStoredLanguage());
   const questions = useMemo(() => getQuizForLesson(lessonId), [lessonId]);
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,8 +16,13 @@ export default function QuizPage() {
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
 
+  useEffect(() => {
+    setStoredLanguage(language);
+  }, [language]);
+
   const currentQuestion = questions[currentIndex];
   const isCorrectAnswer = selected !== null && selected === currentQuestion?.correct;
+  const t = translations[language].quiz;
 
   const handleAnswer = (optionIndex) => {
     if (selected !== null || !currentQuestion) return;
@@ -49,9 +57,9 @@ export default function QuizPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5">
         <Card className="max-w-md p-6 text-center">
-          <h2 className="text-2xl font-bold text-slate-900">No quiz available</h2>
-          <p className="mt-2 text-sm text-slate-600">This lesson does not have an assessment yet.</p>
-          <Button className="mt-5" onClick={() => navigate('/home')}>Return home</Button>
+          <h2 className="text-2xl font-bold text-slate-900">{t.noQuiz}</h2>
+          <p className="mt-2 text-sm text-slate-600">{t.noQuizMessage}</p>
+          <Button className="mt-5" onClick={() => navigate('/home')}>{t.returnHome}</Button>
         </Card>
       </div>
     );
@@ -68,13 +76,13 @@ export default function QuizPage() {
               {score === questions.length ? '★' : percentage >= 70 ? '✓' : '🎯'}
             </div>
 
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Assessment complete</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{t.assessmentComplete}</p>
             <h2 className="mt-3 text-4xl font-bold tracking-tight text-slate-900">{score}/{questions.length}</h2>
-            <p className="mt-2 text-lg text-slate-600">You scored {percentage}% on this quiz.</p>
+            <p className="mt-2 text-lg text-slate-600">{t.scored} {percentage}% {t.onThisQuiz}</p>
 
             <div className="mt-6 rounded-2xl bg-slate-100 p-4 text-left">
               <div className="mb-2 flex items-center justify-between text-sm text-slate-600">
-                <span>Performance</span>
+                <span>{t.performance}</span>
                 <span className="font-semibold text-slate-800">{percentage}%</span>
               </div>
               <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-200">
@@ -86,8 +94,8 @@ export default function QuizPage() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Button variant="secondary" onClick={() => handleRestart()}>Try again</Button>
-              <Button onClick={() => navigate('/progress')}>Continue</Button>
+              <Button variant="secondary" onClick={() => handleRestart()}>{t.tryAgain}</Button>
+              <Button onClick={() => navigate('/progress')}>{t.continue}</Button>
             </div>
           </Card>
         </div>
@@ -100,18 +108,21 @@ export default function QuizPage() {
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Assessment</p>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">Quiz</h1>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{t.assessment}</p>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">{t.title}</h1>
           </div>
-          <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
-            {currentIndex + 1}/{questions.length}
-          </span>
+          <div className="flex items-center gap-3">
+            <LanguageToggle language={language} onChange={setLanguage} />
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
+              {currentIndex + 1}/{questions.length}
+            </span>
+          </div>
         </header>
 
         <Card className="p-6">
           <div className="mb-5 flex items-center justify-between gap-3 text-sm text-slate-500">
-            <span>Question {currentIndex + 1}</span>
-            <span>{score} point{score === 1 ? '' : 's'}</span>
+            <span>{t.question} {currentIndex + 1}</span>
+            <span>{score} {t.points}</span>
           </div>
 
           <h2 className="text-2xl font-semibold leading-snug text-slate-900">{currentQuestion.question}</h2>
@@ -151,16 +162,16 @@ export default function QuizPage() {
           {selected !== null && (
             <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
               <p className={`text-sm font-semibold ${isCorrectAnswer ? 'text-emerald-600' : 'text-rose-600'}`}>
-                {isCorrectAnswer ? 'Correct answer' : 'Not quite'}
+                {isCorrectAnswer ? t.correct : t.notQuite}
               </p>
               <p className="mt-1 text-sm text-slate-700">{currentQuestion.explanation}</p>
             </div>
           )}
 
           <div className="mt-6 flex items-center justify-between gap-3">
-            <Button variant="secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>Back</Button>
+            <Button variant="secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>{t.back}</Button>
             <Button onClick={handleNext} disabled={selected === null}>
-              {currentIndex === questions.length - 1 ? 'Finish' : 'Next'}
+              {currentIndex === questions.length - 1 ? t.finish : t.next}
             </Button>
           </div>
         </Card>
