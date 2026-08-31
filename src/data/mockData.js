@@ -9,6 +9,42 @@ export const grades = [
 ];
 
 export const homeContent = {
+  'grade-2': {
+    subject: 'Mathematics',
+    chapter: 'Algebra Foundations',
+    lessons: [
+      { id: 'algebra-foundations', title: 'Algebra Foundations', duration: '18 min', level: 'Beginner' },
+      { id: 'linear-equations', title: 'Linear Equations', duration: '22 min', level: 'Intermediate' },
+      { id: 'patterns', title: 'Patterns and Sequences', duration: '16 min', level: 'Beginner' },
+    ],
+  },
+  'grade-3': {
+    subject: 'Mathematics',
+    chapter: 'Algebra Foundations',
+    lessons: [
+      { id: 'algebra-foundations', title: 'Algebra Foundations', duration: '18 min', level: 'Beginner' },
+      { id: 'linear-equations', title: 'Linear Equations', duration: '22 min', level: 'Intermediate' },
+      { id: 'patterns', title: 'Patterns and Sequences', duration: '16 min', level: 'Beginner' },
+    ],
+  },
+  'grade-4': {
+    subject: 'Mathematics',
+    chapter: 'Algebra Foundations',
+    lessons: [
+      { id: 'algebra-foundations', title: 'Algebra Foundations', duration: '18 min', level: 'Beginner' },
+      { id: 'linear-equations', title: 'Linear Equations', duration: '22 min', level: 'Intermediate' },
+      { id: 'patterns', title: 'Patterns and Sequences', duration: '16 min', level: 'Beginner' },
+    ],
+  },
+  'grade-5': {
+    subject: 'Mathematics',
+    chapter: 'Algebra Foundations',
+    lessons: [
+      { id: 'algebra-foundations', title: 'Algebra Foundations', duration: '18 min', level: 'Beginner' },
+      { id: 'linear-equations', title: 'Linear Equations', duration: '22 min', level: 'Intermediate' },
+      { id: 'patterns', title: 'Patterns and Sequences', duration: '16 min', level: 'Beginner' },
+    ],
+  },
   'grade-6': {
     subject: 'Mathematics',
     chapter: 'Algebra Foundations',
@@ -23,17 +59,17 @@ export const homeContent = {
     chapter: 'Expressions and Equations',
     lessons: [
       { id: 'expressions', title: 'Expressions and Terms', duration: '20 min', level: 'Beginner' },
-      { id: 'solving-equations', title: 'Solving Equations', duration: '24 min', level: 'Intermediate' },
-      { id: 'graphing', title: 'Graphing Basics', duration: '19 min', level: 'Intermediate' },
+      { id: 'linear-equations', title: 'Linear Equations', duration: '22 min', level: 'Intermediate' },
+      { id: 'patterns', title: 'Patterns and Sequences', duration: '16 min', level: 'Beginner' },
     ],
   },
   'grade-8': {
     subject: 'Mathematics',
     chapter: 'Geometry and Measures',
     lessons: [
-      { id: 'angles', title: 'Angles and Triangles', duration: '25 min', level: 'Intermediate' },
-      { id: 'circles', title: 'Properties of Circles', duration: '21 min', level: 'Advanced' },
-      { id: 'surface-area', title: 'Surface Area', duration: '23 min', level: 'Advanced' },
+      { id: 'linear-equations', title: 'Linear Equations', duration: '22 min', level: 'Intermediate' },
+      { id: 'patterns', title: 'Patterns and Sequences', duration: '16 min', level: 'Beginner' },
+      { id: 'expressions', title: 'Expressions and Terms', duration: '20 min', level: 'Beginner' },
     ],
   },
   'grade-9': {

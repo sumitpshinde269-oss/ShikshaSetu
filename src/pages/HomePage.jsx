@@ -6,7 +6,7 @@ import { grades, getGradeById, getLessonsForGrade } from '../data/mockData';
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const [selectedGrade, setSelectedGrade] = useState(grades[0].id);
+  const [selectedGrade, setSelectedGrade] = useState('grade-6');
   const activeGrade = getGradeById(selectedGrade);
   const lessons = getLessonsForGrade(selectedGrade);
 
