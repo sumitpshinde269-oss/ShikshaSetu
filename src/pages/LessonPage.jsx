@@ -14,6 +14,8 @@ export default function LessonPage() {
   const [quizUnlocked, setQuizUnlocked] = useState(false);
   const [doubt, setDoubt] = useState('');
   const [answer, setAnswer] = useState('');
+  const [teachExplanation, setTeachExplanation] = useState('');
+  const [teachFeedback, setTeachFeedback] = useState('');
   const [isReading, setIsReading] = useState(false);
 
   useEffect(() => {
@@ -98,6 +100,18 @@ export default function LessonPage() {
     setIsReading(true);
   };
 
+  const handleTeachSubmit = () => {
+    const cleanExplanation = teachExplanation.trim();
+    if (!cleanExplanation) {
+      setTeachFeedback(language === 'hi' ? 'कृपया पहले इस अवधारणा को अपने शब्दों में समझाइए।' : 'Please explain the concept in your own words first.');
+      return;
+    }
+
+    setTeachFeedback(language === 'hi'
+      ? 'बहुत अच्छा! आप अवधारणा को स्पष्ट रूप से समझा रहे हैं और इसे अपनी समझ से जोड़ रहे हैं।'
+      : 'Nice work! You are starting to explain the idea clearly and connect the key concept to your own understanding.');
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-md sm:max-w-2xl">
@@ -164,6 +178,28 @@ export default function LessonPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-900">{t.teachItBack}</h2>
+            <div className="mt-3 space-y-3">
+              <textarea
+                value={teachExplanation}
+                onChange={(event) => setTeachExplanation(event.target.value)}
+                rows="3"
+                placeholder={t.teachPlaceholder}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:border-slate-400 focus:bg-white"
+              />
+              <Button type="button" className="w-full" onClick={handleTeachSubmit}>
+                {t.submit}
+              </Button>
+
+              {teachFeedback && (
+                <div className="rounded-xl border border-slate-200 bg-emerald-50 p-3 text-sm leading-6 text-emerald-800">
+                  <p>{teachFeedback}</p>
+                </div>
+              )}
+            </div>
           </section>
 
           <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
