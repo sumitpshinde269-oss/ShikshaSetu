@@ -12,6 +12,8 @@ export default function LessonPage() {
   const navigate = useNavigate();
   const [language, setLanguage] = useState(getStoredLanguage());
   const [quizUnlocked, setQuizUnlocked] = useState(false);
+  const [doubt, setDoubt] = useState('');
+  const [answer, setAnswer] = useState('');
 
   useEffect(() => {
     setStoredLanguage(language);
@@ -44,6 +46,20 @@ export default function LessonPage() {
 
   const handleVideoEnded = () => {
     setQuizUnlocked(true);
+  };
+
+  const handleGetAnswer = () => {
+    const cleanDoubt = doubt.trim();
+    if (!cleanDoubt) {
+      setAnswer(language === 'hi' ? 'कृपया अपना संदेह लिखें।' : 'Please type your doubt first.');
+      return;
+    }
+
+    const response = language === 'hi'
+      ? `इस विषय में, ${cleanDoubt} को समझने के लिए सबसे पहले मूल नियम देखें और एक उदाहरण के साथ अभ्यास करें।`
+      : `For this topic, start by reviewing the key rule behind "${cleanDoubt}" and then try one example to check your understanding.`;
+
+    setAnswer(response);
   };
 
   return (
@@ -101,6 +117,29 @@ export default function LessonPage() {
                 </li>
               ))}
             </ul>
+          </section>
+
+          <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-900">{language === 'hi' ? 'संदेह पूछें' : 'Ask a Doubt'}</h2>
+            <div className="mt-3 space-y-3">
+              <textarea
+                value={doubt}
+                onChange={(event) => setDoubt(event.target.value)}
+                rows="3"
+                placeholder={language === 'hi' ? 'अपना सवाल लिखें...' : 'Write your doubt here...'}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:border-slate-400 focus:bg-white"
+              />
+              <Button type="button" className="w-full" onClick={handleGetAnswer}>
+                {language === 'hi' ? 'उत्तर लें' : 'Get Answer'}
+              </Button>
+
+              {answer && (
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm leading-6 text-slate-700">
+                  <p className="font-medium text-slate-900">{language === 'hi' ? 'उत्तर:' : 'Answer:'}</p>
+                  <p className="mt-1">{answer}</p>
+                </div>
+              )}
+            </div>
           </section>
 
           {hasVideo && (
