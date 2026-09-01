@@ -9,7 +9,7 @@ import { useBookmarks } from '../context/BookmarkContext';
 
 const LAST_LESSON_KEY = 'shiksha-last-lesson';
 
-function LessonCard({ lesson, language, bookmarkedLessonIds, navigate, toggleBookmark, openLabel }) {
+function LessonCard({ lesson, language, bookmarkedLessonIds, navigate, toggleBookmark, openLabel, showRemoveOption = false }) {
   const isBookmarked = bookmarkedLessonIds.includes(lesson.id);
 
   return (
@@ -19,21 +19,33 @@ function LessonCard({ lesson, language, bookmarkedLessonIds, navigate, toggleBoo
         <div className="mt-1 text-sm text-slate-500">{lesson.duration} · {lesson.level}</div>
       </div>
       <div className="flex items-center gap-3">
-        <button
-          type="button"
-          aria-label={`${isBookmarked ? 'Remove' : 'Add'} bookmark for ${lesson.title}`}
-          aria-pressed={isBookmarked}
-          title={isBookmarked ? 'Remove bookmark' : 'Bookmark lesson'}
-          onClick={(event) => {
-            event.stopPropagation();
-            toggleBookmark(lesson.id);
-          }}
-          className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${isBookmarked ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'}`}
-        >
-          <svg viewBox="0 0 24 24" fill={isBookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z" />
-          </svg>
-        </button>
+        {showRemoveOption ? (
+          <Button
+            variant="secondary"
+            onClick={(event) => {
+              event.stopPropagation();
+              toggleBookmark(lesson.id);
+            }}
+          >
+            Remove
+          </Button>
+        ) : (
+          <button
+            type="button"
+            aria-label={`${isBookmarked ? 'Remove' : 'Add'} bookmark for ${lesson.title}`}
+            aria-pressed={isBookmarked}
+            title={isBookmarked ? 'Remove bookmark' : 'Bookmark lesson'}
+            onClick={(event) => {
+              event.stopPropagation();
+              toggleBookmark(lesson.id);
+            }}
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${isBookmarked ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'}`}
+          >
+            <svg viewBox="0 0 24 24" fill={isBookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z" />
+            </svg>
+          </button>
+        )}
         <Button className="bg-blue-600 text-white hover:bg-blue-700">{openLabel}</Button>
       </div>
     </Card>
@@ -150,6 +162,7 @@ export default function HomePage() {
                       navigate={navigate}
                       toggleBookmark={toggleBookmark}
                       openLabel={t.open}
+                      showRemoveOption
                     />
                   ))}
                 </div>
