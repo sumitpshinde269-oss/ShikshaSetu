@@ -25,7 +25,7 @@ export default function ProgressPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-8">
+    <div className="min-h-screen bg-slate-50 px-5 py-8 dark:bg-slate-950">
       <div className="mx-auto max-w-5xl">
         <header className="mb-6 flex items-center justify-between gap-4">
           <div>

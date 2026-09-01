@@ -46,7 +46,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-10">
+    <div className="min-h-screen bg-slate-50 px-5 py-10 dark:bg-slate-950">
       <div className="mx-auto max-w-md">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
@@ -58,7 +58,7 @@ export default function AuthPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
           {!otpSent ? (
             <div className="space-y-4">
               <div>

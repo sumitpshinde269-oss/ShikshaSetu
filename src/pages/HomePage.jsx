@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import LanguageToggle from '../components/LanguageToggle';
+import ThemeToggle from '../components/ThemeToggle';
 import { getStoredLanguage, setStoredLanguage, translations } from '../data/i18n';
 import { getGradeById, getLessonContent, getLessonsForGrade, grades } from '../data/mockData';
 import { useBookmarks } from '../context/BookmarkContext';
@@ -15,8 +16,8 @@ function LessonCard({ lesson, language, bookmarkedLessonIds, navigate, toggleBoo
   return (
     <Card onClick={() => navigate(`/lesson/${lesson.id}`)} className="flex items-center justify-between gap-4">
       <div>
-        <div className="text-base font-semibold text-slate-900">{language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title}</div>
-        <div className="mt-1 text-sm text-slate-500">{lesson.duration} · {lesson.level}</div>
+        <div className="text-base font-semibold text-slate-900 dark:text-slate-100">{language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title}</div>
+        <div className="mt-1 text-sm text-slate-500 dark:text-slate-400">{lesson.duration} · {lesson.level}</div>
       </div>
       <div className="flex items-center gap-3">
         {showRemoveOption ? (
@@ -39,7 +40,7 @@ function LessonCard({ lesson, language, bookmarkedLessonIds, navigate, toggleBoo
               event.stopPropagation();
               toggleBookmark(lesson.id);
             }}
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${isBookmarked ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'}`}
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${isBookmarked ? 'border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-200'}`}
           >
             <svg viewBox="0 0 24 24" fill={isBookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z" />
@@ -90,7 +91,7 @@ export default function HomePage() {
   const lastLesson = lastLessonId ? getLessonContent(lastLessonId) : null;
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-8">
+    <div className="min-h-screen bg-slate-50 px-5 py-8 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl">
         <header className="mb-8 flex items-center justify-between gap-4">
           <div>
@@ -99,6 +100,7 @@ export default function HomePage() {
           </div>
           <div className="flex items-center gap-3">
             <LanguageToggle language={language} onChange={setLanguage} />
+            <ThemeToggle />
             <Button variant="secondary" onClick={() => navigate('/progress')}>{t.progress}</Button>
           </div>
         </header>

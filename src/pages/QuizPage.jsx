@@ -86,7 +86,7 @@ export default function QuizPage() {
 
   if (!currentQuestion && !isFinished) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 dark:bg-slate-950">
         <Card className="max-w-md p-6 text-center">
           <h2 className="text-2xl font-bold text-slate-900">{t.noQuiz}</h2>
           <p className="mt-2 text-sm text-slate-600">{t.noQuizMessage}</p>
@@ -100,7 +100,7 @@ export default function QuizPage() {
     const percentage = Math.round((score / questions.length) * 100);
 
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 py-8">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 py-8 dark:bg-slate-950">
         <div className="w-full max-w-2xl">
           <Card className="p-8 text-center">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-2xl text-emerald-700">
@@ -135,7 +135,7 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-8">
+    <div className="min-h-screen bg-slate-50 px-5 py-8 dark:bg-slate-950">
       <div className="mx-auto max-w-3xl">
         <header className="mb-6 flex items-center justify-between gap-4">
           <div>
