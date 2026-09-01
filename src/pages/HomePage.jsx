@@ -13,6 +13,7 @@ export default function HomePage() {
   const [language, setLanguage] = useState(getStoredLanguage());
   const [selectedGrade, setSelectedGrade] = useState('grade-6');
   const [searchTerm, setSearchTerm] = useState('');
+  const [bookmarkedLessonIds, setBookmarkedLessonIds] = useState([]);
   const activeGrade = getGradeById(selectedGrade);
   const lessons = getLessonsForGrade(selectedGrade);
   const filteredLessons = lessons.filter((lesson) => {
@@ -35,6 +36,14 @@ export default function HomePage() {
 
   const t = translations[language].home;
   const lastLesson = lastLessonId ? getLessonContent(lastLessonId) : null;
+
+  const toggleBookmark = (lessonId) => {
+    setBookmarkedLessonIds((currentBookmarks) => (
+      currentBookmarks.includes(lessonId)
+        ? currentBookmarks.filter((id) => id !== lessonId)
+        : [...currentBookmarks, lessonId]
+    ));
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 px-5 py-8">
@@ -140,12 +149,16 @@ export default function HomePage() {
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
-                          disabled
-                          aria-label="Bookmark lesson"
-                          title="Bookmark lesson"
-                          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500"
+                          aria-label={`${bookmarkedLessonIds.includes(lesson.id) ? 'Remove' : 'Add'} bookmark for ${lesson.title}`}
+                          aria-pressed={bookmarkedLessonIds.includes(lesson.id)}
+                          title={bookmarkedLessonIds.includes(lesson.id) ? 'Remove bookmark' : 'Bookmark lesson'}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            toggleBookmark(lesson.id);
+                          }}
+                          className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${bookmarkedLessonIds.includes(lesson.id) ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'}`}
                         >
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill={bookmarkedLessonIds.includes(lesson.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z" />
                           </svg>
                         </button>
