@@ -86,9 +86,9 @@ export default function QuizPage() {
 
   if (!currentQuestion && !isFinished) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 dark:bg-slate-950">
-        <Card className="max-w-md p-6 text-center">
-          <h2 className="text-2xl font-bold text-slate-900">{t.noQuiz}</h2>
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-slate-950 sm:px-5">
+        <Card className="w-full max-w-md p-4 text-center sm:p-6">
+          <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">{t.noQuiz}</h2>
           <p className="mt-2 text-sm text-slate-600">{t.noQuizMessage}</p>
           <Button className="mt-5" onClick={() => navigate('/home')}>{t.returnHome}</Button>
         </Card>
@@ -100,16 +100,16 @@ export default function QuizPage() {
     const percentage = Math.round((score / questions.length) * 100);
 
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 py-8 dark:bg-slate-950">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-6 dark:bg-slate-950 sm:px-5 sm:py-8">
         <div className="w-full max-w-2xl">
-          <Card className="p-8 text-center">
+          <Card className="p-5 text-center sm:p-8">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-2xl text-emerald-700">
               {score === questions.length ? '★' : percentage >= 70 ? '✓' : '🎯'}
             </div>
 
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{t.assessmentComplete}</p>
-            <h2 className="mt-3 text-4xl font-bold tracking-tight text-slate-900">{score}/{questions.length}</h2>
-            <p className="mt-2 text-lg text-slate-600">{t.scored} {percentage}% {t.onThisQuiz}</p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{score}/{questions.length}</h2>
+            <p className="mt-2 text-base text-slate-600 sm:text-lg">{t.scored} {percentage}% {t.onThisQuiz}</p>
 
             <div className="mt-6 rounded-2xl bg-slate-100 p-4 text-left">
               <div className="mb-2 flex items-center justify-between text-sm text-slate-600">
@@ -125,8 +125,8 @@ export default function QuizPage() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Button variant="secondary" onClick={() => handleRestart()}>{t.tryAgain}</Button>
-              <Button onClick={() => navigate('/progress')}>{t.continue}</Button>
+              <Button variant="secondary" className="w-full sm:w-auto" onClick={() => handleRestart()}>{t.tryAgain}</Button>
+              <Button className="w-full sm:w-auto" onClick={() => navigate('/progress')}>{t.continue}</Button>
             </div>
           </Card>
         </div>
@@ -135,14 +135,14 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-8 dark:bg-slate-950">
+    <div className="min-h-screen bg-slate-50 px-4 py-6 dark:bg-slate-950 sm:px-5 sm:py-8">
       <div className="mx-auto max-w-3xl">
-        <header className="mb-6 flex items-center justify-between gap-4">
+        <header className="mb-5 flex flex-col items-start gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{t.assessment}</p>
-            <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900">{t.title}</h1>
+            <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{t.title}</h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start sm:gap-3">
             <LanguageToggle language={language} onChange={setLanguage} />
             <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700">
               {currentIndex + 1}/{questions.length}
@@ -150,13 +150,13 @@ export default function QuizPage() {
           </div>
         </header>
 
-        <Card className="p-6">
-          <div className="mb-5 flex items-center justify-between gap-3 text-sm text-slate-500">
+        <Card className="p-4 sm:p-6">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500 sm:mb-5 sm:gap-3">
             <span>{t.question} {currentIndex + 1}</span>
             <span>{score} {t.points}</span>
           </div>
 
-          <h2 className="text-2xl font-semibold leading-snug text-slate-900">{currentQuestion.question}</h2>
+          <h2 className="break-words text-xl font-semibold leading-snug text-slate-900 sm:text-2xl">{currentQuestion.question}</h2>
 
           <div className="mt-5 space-y-3">
             {currentQuestion.options.map((option, index) => {
@@ -180,9 +180,9 @@ export default function QuizPage() {
                   type="button"
                   onClick={() => handleAnswer(index)}
                   disabled={selected !== null}
-                  className={`flex w-full items-center justify-between rounded-xl border p-3.5 text-left text-sm font-medium transition disabled:cursor-default ${classes}`}
+                  className={`flex w-full min-w-0 items-center justify-between gap-3 rounded-xl border p-3 text-left text-sm font-medium leading-5 transition disabled:cursor-default sm:p-3.5 ${classes}`}
                 >
-                  <span>{option}</span>
+                  <span className="min-w-0 break-words">{option}</span>
                   {showFeedback && isCorrect && <span className="text-lg font-bold">✓</span>}
                   {showFeedback && isSelected && !isCorrect && <span className="text-lg font-bold">✕</span>}
                 </button>
@@ -202,7 +202,7 @@ export default function QuizPage() {
           {followUpQuestion && selected !== null && selected !== currentQuestion.correct && (
             <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Quick practice</p>
-              <h3 className="mt-2 text-xl font-semibold text-slate-900">{followUpQuestion.question}</h3>
+              <h3 className="mt-2 break-words text-lg font-semibold text-slate-900 sm:text-xl">{followUpQuestion.question}</h3>
 
               <div className="mt-4 space-y-3">
                 {followUpQuestion.options.map((option, index) => {
@@ -226,9 +226,9 @@ export default function QuizPage() {
                       type="button"
                       onClick={() => setFollowUpSelected(index)}
                       disabled={followUpSelected !== null}
-                      className={`flex w-full items-center justify-between rounded-xl border p-3.5 text-left text-sm font-medium transition disabled:cursor-default ${classes}`}
+                      className={`flex w-full min-w-0 items-center justify-between gap-3 rounded-xl border p-3 text-left text-sm font-medium leading-5 transition disabled:cursor-default sm:p-3.5 ${classes}`}
                     >
-                      <span>{option}</span>
+                      <span className="min-w-0 break-words">{option}</span>
                       {showFeedback && isCorrect && <span className="text-lg font-bold">✓</span>}
                       {showFeedback && isSelected && !isCorrect && <span className="text-lg font-bold">✕</span>}
                     </button>
@@ -244,9 +244,9 @@ export default function QuizPage() {
             </div>
           )}
 
-          <div className="mt-6 flex items-center justify-between gap-3">
-            <Button variant="secondary" onClick={() => navigate(`/lesson/${lessonId}`)}>{t.back}</Button>
-            <Button onClick={handleNext} disabled={selected === null || (selected !== currentQuestion.correct && followUpSelected === null)}>
+          <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <Button variant="secondary" className="w-full sm:w-auto" onClick={() => navigate(`/lesson/${lessonId}`)}>{t.back}</Button>
+            <Button className="w-full sm:w-auto" onClick={handleNext} disabled={selected === null || (selected !== currentQuestion.correct && followUpSelected === null)}>
               {currentIndex === questions.length - 1 ? t.finish : t.next}
             </Button>
           </div>
