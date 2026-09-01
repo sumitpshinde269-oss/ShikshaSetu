@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import LessonPage from './pages/LessonPage';
 import QuizPage from './pages/QuizPage';
 import ProgressPage from './pages/ProgressPage';
+import NotFoundPage from './pages/NotFoundPage';
 import { BookmarkProvider } from './context/BookmarkContext';
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/lesson/:lessonId" element={<LessonPage />} />
             <Route path="/quiz/:lessonId" element={<QuizPage />} />
             <Route path="/progress" element={<ProgressPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BookmarkProvider>
       </ThemeProvider>
