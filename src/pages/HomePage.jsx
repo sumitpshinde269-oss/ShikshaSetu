@@ -9,6 +9,37 @@ import { useBookmarks } from '../context/BookmarkContext';
 
 const LAST_LESSON_KEY = 'shiksha-last-lesson';
 
+function LessonCard({ lesson, language, bookmarkedLessonIds, navigate, toggleBookmark, openLabel }) {
+  const isBookmarked = bookmarkedLessonIds.includes(lesson.id);
+
+  return (
+    <Card onClick={() => navigate(`/lesson/${lesson.id}`)} className="flex items-center justify-between gap-4">
+      <div>
+        <div className="text-base font-semibold text-slate-900">{language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title}</div>
+        <div className="mt-1 text-sm text-slate-500">{lesson.duration} · {lesson.level}</div>
+      </div>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          aria-label={`${isBookmarked ? 'Remove' : 'Add'} bookmark for ${lesson.title}`}
+          aria-pressed={isBookmarked}
+          title={isBookmarked ? 'Remove bookmark' : 'Bookmark lesson'}
+          onClick={(event) => {
+            event.stopPropagation();
+            toggleBookmark(lesson.id);
+          }}
+          className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${isBookmarked ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'}`}
+        >
+          <svg viewBox="0 0 24 24" fill={isBookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z" />
+          </svg>
+        </button>
+        <Button className="bg-blue-600 text-white hover:bg-blue-700">{openLabel}</Button>
+      </div>
+    </Card>
+  );
+}
+
 export default function HomePage() {
   const navigate = useNavigate();
   const [language, setLanguage] = useState(getStoredLanguage());
@@ -20,6 +51,14 @@ export default function HomePage() {
   const filteredLessons = lessons.filter((lesson) => {
     const lessonTitle = language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title;
     return lessonTitle.toLowerCase().includes(searchTerm.trim().toLowerCase());
+  });
+  const bookmarkedLessons = bookmarkedLessonIds.map((lessonId) => {
+    const lesson = getLessonContent(lessonId);
+    const listedLesson = grades
+      .flatMap((grade) => getLessonsForGrade(grade.id))
+      .find((item) => item.id === lessonId);
+
+    return { ...lesson, level: listedLesson?.level || 'Lesson' };
   });
   const [lastLessonId, setLastLessonId] = useState(() => {
     if (typeof window === 'undefined') return null;
@@ -95,6 +134,28 @@ export default function HomePage() {
               </div>
             )}
 
+            {bookmarkedLessons.length > 0 && (
+              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" aria-labelledby="bookmarks-heading">
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-slate-500">Saved lessons</p>
+                  <h2 id="bookmarks-heading" className="mt-1 text-xl font-semibold text-slate-900">My Bookmarks</h2>
+                </div>
+                <div className="space-y-3">
+                  {bookmarkedLessons.map((lesson) => (
+                    <LessonCard
+                      key={lesson.id}
+                      lesson={lesson}
+                      language={language}
+                      bookmarkedLessonIds={bookmarkedLessonIds}
+                      navigate={navigate}
+                      toggleBookmark={toggleBookmark}
+                      openLabel={t.open}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div>
@@ -134,30 +195,15 @@ export default function HomePage() {
               ) : (
                 <div className="space-y-3">
                   {filteredLessons.map((lesson) => (
-                    <Card key={lesson.id} onClick={() => navigate(`/lesson/${lesson.id}`)} className="flex items-center justify-between gap-4">
-                      <div>
-                        <div className="text-base font-semibold text-slate-900">{language === 'hi' && lesson.titleHi ? lesson.titleHi : lesson.title}</div>
-                        <div className="mt-1 text-sm text-slate-500">{lesson.duration} · {lesson.level}</div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <button
-                          type="button"
-                          aria-label={`${bookmarkedLessonIds.includes(lesson.id) ? 'Remove' : 'Add'} bookmark for ${lesson.title}`}
-                          aria-pressed={bookmarkedLessonIds.includes(lesson.id)}
-                          title={bookmarkedLessonIds.includes(lesson.id) ? 'Remove bookmark' : 'Bookmark lesson'}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            toggleBookmark(lesson.id);
-                          }}
-                          className={`inline-flex h-10 w-10 items-center justify-center rounded-lg border transition ${bookmarkedLessonIds.includes(lesson.id) ? 'border-blue-200 bg-blue-50 text-blue-600' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300 hover:text-slate-700'}`}
-                        >
-                          <svg viewBox="0 0 24 24" fill={bookmarkedLessonIds.includes(lesson.id) ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" className="h-5 w-5" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-3.75L6 21V4.75Z" />
-                          </svg>
-                        </button>
-                        <Button className="bg-blue-600 text-white hover:bg-blue-700">{t.open}</Button>
-                      </div>
-                    </Card>
+                    <LessonCard
+                      key={lesson.id}
+                      lesson={lesson}
+                      language={language}
+                      bookmarkedLessonIds={bookmarkedLessonIds}
+                      navigate={navigate}
+                      toggleBookmark={toggleBookmark}
+                      openLabel={t.open}
+                    />
                   ))}
                 </div>
               )}
