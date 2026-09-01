@@ -17,6 +17,7 @@ export default function LessonPage() {
   const [teachExplanation, setTeachExplanation] = useState('');
   const [teachFeedback, setTeachFeedback] = useState('');
   const [isReading, setIsReading] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
 
   useEffect(() => {
     setStoredLanguage(language);
@@ -26,6 +27,10 @@ export default function LessonPage() {
     if (lessonId && typeof window !== 'undefined') {
       window.localStorage.setItem(LAST_LESSON_KEY, lessonId);
     }
+  }, [lessonId]);
+
+  useEffect(() => {
+    setIsVideoLoading(true);
   }, [lessonId]);
 
   useEffect(() => {
@@ -144,11 +149,18 @@ export default function LessonPage() {
               <Button className="mt-5" onClick={() => navigate('/home')}>{t.backHome}</Button>
             </div>
           ) : (
-            <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <section className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
+              {isVideoLoading && (
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-slate-900/90 text-white" role="status" aria-live="polite">
+                  <span className="h-9 w-9 animate-spin rounded-full border-4 border-white/30 border-t-white" aria-hidden="true" />
+                  <span className="text-sm font-medium">Loading lesson video...</span>
+                </div>
+              )}
               <video
                 className="block aspect-video w-full bg-slate-900"
                 controls
                 preload="metadata"
+                onCanPlay={() => setIsVideoLoading(false)}
                 onEnded={handleVideoEnded}
               >
                 <source src={lesson.videoUrl} type="video/mp4" />
