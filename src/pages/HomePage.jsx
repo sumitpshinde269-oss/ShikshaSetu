@@ -5,6 +5,7 @@ import Card from '../components/Card';
 import LanguageToggle from '../components/LanguageToggle';
 import { getStoredLanguage, setStoredLanguage, translations } from '../data/i18n';
 import { getGradeById, getLessonContent, getLessonsForGrade, grades } from '../data/mockData';
+import { useBookmarks } from '../context/BookmarkContext';
 
 const LAST_LESSON_KEY = 'shiksha-last-lesson';
 
@@ -13,7 +14,7 @@ export default function HomePage() {
   const [language, setLanguage] = useState(getStoredLanguage());
   const [selectedGrade, setSelectedGrade] = useState('grade-6');
   const [searchTerm, setSearchTerm] = useState('');
-  const [bookmarkedLessonIds, setBookmarkedLessonIds] = useState([]);
+  const { bookmarkedLessonIds, toggleBookmark } = useBookmarks();
   const activeGrade = getGradeById(selectedGrade);
   const lessons = getLessonsForGrade(selectedGrade);
   const filteredLessons = lessons.filter((lesson) => {
@@ -36,14 +37,6 @@ export default function HomePage() {
 
   const t = translations[language].home;
   const lastLesson = lastLessonId ? getLessonContent(lastLessonId) : null;
-
-  const toggleBookmark = (lessonId) => {
-    setBookmarkedLessonIds((currentBookmarks) => (
-      currentBookmarks.includes(lessonId)
-        ? currentBookmarks.filter((id) => id !== lessonId)
-        : [...currentBookmarks, lessonId]
-    ));
-  };
 
   return (
     <div className="min-h-screen bg-slate-50 px-5 py-8">

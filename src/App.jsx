@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import LessonPage from './pages/LessonPage';
 import QuizPage from './pages/QuizPage';
 import ProgressPage from './pages/ProgressPage';
+import { BookmarkProvider } from './context/BookmarkContext';
 
 // Student workflow algorithm:
 // Login/Signup -> Home (grade + chapter selection) -> Lesson (video + notes + quiz access) -> Quiz -> Progress
@@ -18,14 +19,16 @@ import ProgressPage from './pages/ProgressPage';
 function App() {
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<AuthPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/lesson/:lessonId" element={<LessonPage />} />
-        <Route path="/quiz/:lessonId" element={<QuizPage />} />
-        <Route path="/progress" element={<ProgressPage />} />
-      </Routes>
+      <BookmarkProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/lesson/:lessonId" element={<LessonPage />} />
+          <Route path="/quiz/:lessonId" element={<QuizPage />} />
+          <Route path="/progress" element={<ProgressPage />} />
+        </Routes>
+      </BookmarkProvider>
     </BrowserRouter>
   );
 }
