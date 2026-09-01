@@ -1,5 +1,6 @@
 {
-  "name": "math-learning-app",
+  "name": "shiksha-setu",
+  "description": "A free Maths learning webapp for Grade 2–8 students.",
   "private": true,
   "version": "1.0.0",
   "type": "module",
