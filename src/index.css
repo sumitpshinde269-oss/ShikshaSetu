@@ -77,7 +77,29 @@ select {
 }
 
 @layer utilities {
+  .page-transition {
+    animation: page-enter 180ms ease-out both;
+  }
+
   .panel {
     @apply rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
   }
 }

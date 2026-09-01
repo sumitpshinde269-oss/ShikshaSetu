@@ -46,7 +46,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-10 dark:bg-slate-950">
+    <div className="page-transition min-h-screen bg-slate-50 px-5 py-10 dark:bg-slate-950">
       <div className="mx-auto max-w-md">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>

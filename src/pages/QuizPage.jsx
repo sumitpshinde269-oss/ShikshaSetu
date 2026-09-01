@@ -86,7 +86,7 @@ export default function QuizPage() {
 
   if (!currentQuestion && !isFinished) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-slate-950 sm:px-5">
+      <div className="page-transition flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-slate-950 sm:px-5">
         <Card className="w-full max-w-md p-4 text-center sm:p-6">
           <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">{t.noQuiz}</h2>
           <p className="mt-2 text-sm text-slate-600">{t.noQuizMessage}</p>
@@ -100,7 +100,7 @@ export default function QuizPage() {
     const percentage = Math.round((score / questions.length) * 100);
 
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-6 dark:bg-slate-950 sm:px-5 sm:py-8">
+      <div className="page-transition flex min-h-screen items-center justify-center bg-slate-50 px-4 py-6 dark:bg-slate-950 sm:px-5 sm:py-8">
         <div className="w-full max-w-2xl">
           <Card className="p-5 text-center sm:p-8">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-2xl text-emerald-700">
@@ -135,7 +135,7 @@ export default function QuizPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-6 dark:bg-slate-950 sm:px-5 sm:py-8">
+    <div className="page-transition min-h-screen bg-slate-50 px-4 py-6 dark:bg-slate-950 sm:px-5 sm:py-8">
       <div className="mx-auto max-w-3xl">
         <header className="mb-5 flex flex-col items-start gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
           <div>

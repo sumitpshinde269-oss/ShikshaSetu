@@ -47,7 +47,7 @@ export default function LessonPage() {
 
   if (!lessonId || !lesson || !lesson.id) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-5 dark:bg-slate-950">
+      <div className="page-transition flex min-h-screen items-center justify-center bg-slate-50 px-5 dark:bg-slate-950">
         <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">
           <h2 className="text-2xl font-bold text-slate-900">{t.noLesson}</h2>
           <p className="mt-2 text-sm text-slate-600">{t.noLessonMessage}</p>
@@ -118,7 +118,7 @@ export default function LessonPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-6 sm:px-6 dark:bg-slate-950">
+    <div className="page-transition min-h-screen bg-slate-50 px-4 py-6 sm:px-6 dark:bg-slate-950">
       <div className="mx-auto max-w-md sm:max-w-2xl">
         <header className="mb-5 flex items-center justify-between gap-3">
           <button

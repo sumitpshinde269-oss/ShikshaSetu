@@ -91,7 +91,7 @@ export default function HomePage() {
   const lastLesson = lastLessonId ? getLessonContent(lastLessonId) : null;
 
   return (
-    <div className="min-h-screen bg-slate-50 px-5 py-8 dark:bg-slate-950">
+    <div className="page-transition min-h-screen bg-slate-50 px-5 py-8 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl">
         <header className="mb-8 flex items-center justify-between gap-4">
           <div>
