@@ -146,12 +146,12 @@ export default function HomePage() {
               </div>
             )}
 
-            {bookmarkedLessons.length > 0 && (
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" aria-labelledby="bookmarks-heading">
-                <div className="mb-4">
-                  <p className="text-sm font-medium text-slate-500">Saved lessons</p>
-                  <h2 id="bookmarks-heading" className="mt-1 text-xl font-semibold text-slate-900">My Bookmarks</h2>
-                </div>
+            <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" aria-labelledby="bookmarks-heading">
+              <div className="mb-4">
+                <p className="text-sm font-medium text-slate-500">Saved lessons</p>
+                <h2 id="bookmarks-heading" className="mt-1 text-xl font-semibold text-slate-900">My Bookmarks</h2>
+              </div>
+              {bookmarkedLessons.length > 0 ? (
                 <div className="space-y-3">
                   {bookmarkedLessons.map((lesson) => (
                     <LessonCard
@@ -166,8 +166,12 @@ export default function HomePage() {
                     />
                   ))}
                 </div>
-              </section>
-            )}
+              ) : (
+                <p className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-sm font-medium text-slate-600">
+                  No bookmarks yet — tap the star icon on any lesson to save it
+                </p>
+              )}
+            </section>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div className="mb-4 flex items-center justify-between gap-3">
